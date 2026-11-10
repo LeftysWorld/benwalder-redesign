@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: benwalder-redesign
+    runtime: static
+    buildCommand: python3 build.py || echo "Python unavailable, publishing committed site/"
+    staticPublishPath: ./site
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /static/*
+        name: Cache-Control
+        value: public, max-age=604800
